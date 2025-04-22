@@ -45,9 +45,16 @@ class Connect4Agent:
         print("Oldboard la:", self.old_board)
         non_zero_cells = sum(cell != 0 for row in gs.board for cell in row)
         if non_zero_cells == 0:
+            self.pos = self.game.get_initial_position()
             self.pos.turn = 0
             self.old_board = [[0 for _ in range(7)] for _ in range(6)]  # reset old_board
             print("Board sau khi refresh (minh di truoc) la:", self.old_board)
+        elif non_zero_cells == 1:
+            self.pos = self.game.get_initial_position()
+            self.old_board = [[0 for _ in range(7)] for _ in range(6)]
+            print("Board sau khi refresh (minh di sau) la:", self.old_board)
+
+
 
         # 1) Detect opponent's last move by diffing columns
         opp_move = None
