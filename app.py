@@ -43,17 +43,14 @@ class Connect4Agent:
 
     #     return move
     def create_position_from_game_state(self, gs: GameState) -> int:
-        print("Oldboard la:", self.old_board)
         non_zero_cells = sum(cell != 0 for row in gs.board for cell in row)
         if non_zero_cells == 0:
             self.pos = self.game.get_initial_position()
             self.pos.turn = 0
             self.old_board = [[0 for _ in range(7)] for _ in range(6)]  # reset old_board
-            print("Board sau khi refresh (minh di truoc) la:", self.old_board)
         elif non_zero_cells == 1:
             self.pos = self.game.get_initial_position()
             self.old_board = [[0 for _ in range(7)] for _ in range(6)]
-            print("Board sau khi refresh (minh di sau) la:", self.old_board)
 
 
 
@@ -68,29 +65,19 @@ class Connect4Agent:
 
         # 2) If we found their move, apply it to the Position
         if opp_move is not None:
-            print("Mask before human makes move: ", self.pos.mask)
             self.pos = self.pos.move(opp_move)
         
-        print("Mask after human makes move: ", self.pos.mask)
 
         # 3) Update our baseline board snapshot
         self.old_board = copy.deepcopy(gs.board)
-        print("Board sau khi copy la:", self.old_board)
-
-
 
         # 4) Let the AI choose its move
-        # if self.computer_moves_made <= 0:
-        #     strat = ucb2_agent(1)
-        # elif self.computer_moves_made <= 2:
-        #     strat = ucb2_agent(2)
-        # elif self.computer_moves_made <= 7:
-        #     strat = ucb2_agent(7)
-        # elif self.computer_moves_made <= 10:
-        #     strat = ucb2_agent(2)
-        # else:
-        #     strat = ucb2_agent(1)
-        strat = ucb2_agent(6)
+        if self.computer_moves_made <= 2:
+            strat = ucb2_agent(3)
+        elif self.computer_moves_made <= 10:
+            strat = ucb2_agent(5)
+        else:
+            strat = ucb2_agent(1)
         ai_move = strat(self.pos)
         self.computer_moves_made += 1
 
@@ -114,7 +101,6 @@ async def make_move(game_state: GameState) -> AIResponse:
             raise ValueError("Không có nước đi hợp lệ")
             
         next_move = connect4agent.create_position_from_game_state(game_state)
-        print("AI chọn nước:", next_move)
         return AIResponse(move=next_move)
     except Exception as e:
         if game_state.valid_moves:
