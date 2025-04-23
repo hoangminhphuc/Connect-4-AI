@@ -80,17 +80,17 @@ class Connect4Agent:
 
 
         # 4) Let the AI choose its move
-        if self.computer_moves_made <= 0:
-            strat = ucb2_agent(1)
-        elif self.computer_moves_made <= 2:
-            strat = ucb2_agent(2)
-        elif self.computer_moves_made <= 7:
-            strat = ucb2_agent(7)
-        elif self.computer_moves_made <= 10:
-            strat = ucb2_agent(2)
-        else:
-            strat = ucb2_agent(1)
-
+        # if self.computer_moves_made <= 0:
+        #     strat = ucb2_agent(1)
+        # elif self.computer_moves_made <= 2:
+        #     strat = ucb2_agent(2)
+        # elif self.computer_moves_made <= 7:
+        #     strat = ucb2_agent(7)
+        # elif self.computer_moves_made <= 10:
+        #     strat = ucb2_agent(2)
+        # else:
+        #     strat = ucb2_agent(1)
+        strat = ucb2_agent(7)
         ai_move = strat(self.pos)
         self.computer_moves_made += 1
 
