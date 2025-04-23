@@ -90,7 +90,7 @@ class Connect4Agent:
         #     strat = ucb2_agent(2)
         # else:
         #     strat = ucb2_agent(1)
-        strat = ucb2_agent(7)
+        strat = ucb2_agent(6)
         ai_move = strat(self.pos)
         self.computer_moves_made += 1
 
