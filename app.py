@@ -47,10 +47,13 @@ class Connect4Agent:
         if non_zero_cells == 0:
             self.pos = self.game.get_initial_position()
             self.pos.turn = 0
+            self.computer_moves_made = 0
+            # self.computer_moves_made
             self.old_board = [[0 for _ in range(7)] for _ in range(6)]  # reset old_board
         elif non_zero_cells == 1:
             self.pos = self.game.get_initial_position()
             self.old_board = [[0 for _ in range(7)] for _ in range(6)]
+            self.computer_moves_made = 0
 
 
 
@@ -82,6 +85,7 @@ class Connect4Agent:
             strat = ucb2_agent(1)
         ai_move = strat(self.pos)
         self.computer_moves_made += 1
+
 
         # 5) Apply AI move to both Position and old_board
         self.pos = self.pos.move(ai_move)
